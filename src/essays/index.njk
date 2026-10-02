@@ -1,0 +1,18 @@
+---
+layout: base.njk
+title: 에세이
+permalink: /essays/
+eleventyExcludeFromCollections: true
+---
+{% if collections.essays.length %}
+<ol class="rows">
+{%- for e in collections.essays %}
+<li class="row">
+<div class="row-head"><a class="row-title" href="{{ e.url }}">{{ e.data.title }}</a><p class="row-date">{{ e.date | monthDot }}</p></div>
+<p class="row-body">{{ e.data.summary }}</p>
+</li>
+{%- endfor %}
+</ol>
+{% else %}
+<p class="empty">아직 에세이가 없습니다.</p>
+{% endif %}

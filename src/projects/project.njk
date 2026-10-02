@@ -1,0 +1,69 @@
+---
+layout: base.njk
+mainClass: tight
+pagination:
+  data: repos
+  size: 1
+  alias: repo
+permalink: "/projects/{{ repo.slug }}/"
+eleventyExcludeFromCollections: true
+eleventyComputed:
+  title: "{{ repo.name }}"
+  summary: "{{ repo.description }}"
+---
+<p class="crumb"><a href="/projects/">프로젝트</a> / {{ repo.name }}</p>
+<h1 class="project-title">{{ repo.name }}</h1>
+{% if repo.description %}<p class="project-desc">{{ repo.description | escape }}</p>{% endif %}
+<p class="meta-line project-meta">
+{%- if repo.metaLine %}{{ repo.metaLine }} · {% endif -%}
+{%- if repo.pushed %}마지막 커밋 {{ repo.pushed | dotDate }} · {% endif -%}
+<a href="{{ repo.url }}">GitHub에서 보기 ↗</a>
+</p>
+
+<div class="sections">
+{% if repo.readmeHtml %}
+<section class="section">
+<div class="section-head"><h2>README</h2><p class="row-date">저장소에서 자동 동기화</p></div>
+<div class="section-body readme">
+{{ repo.readmeHtml | safe }}
+</div>
+</section>
+{% endif %}
+
+<section class="section">
+<div class="section-head">
+<h2>코드</h2>
+<p class="row-date">{{ repo.branch }}{% if repo.sha %} · {{ repo.sha }}{% endif %}</p>
+{% if repo.tree.length %}
+<ul class="tree" aria-label="파일 목록">
+{%- for f in repo.tree %}
+<li class="depth-{{ f.depth }}{% if f.shown %} on{% endif %}"{% if f.shown %} aria-current="true"{% endif %}>{{ f.name }}</li>
+{%- endfor %}
+{%- if repo.treeTruncated %}<li><a href="{{ repo.url }}">… 전체 보기</a></li>{% endif %}
+</ul>
+{% endif %}
+</div>
+<div class="section-body">
+{% for file in repo.files %}
+<div class="code">
+<div class="code-head"><a class="path" href="{{ file.url }}">{{ file.path }}</a><span>{{ file.total }} lines</span></div>
+<pre class="code-body"><code>{% for line in file.lines %}<span class="code-line"><span class="ln">{{ loop.index }}</span><span class="lc">{{ line | escape }}</span></span>{% endfor %}</code></pre>
+{% if file.truncated %}<p class="code-more"><a href="{{ file.url }}">나머지 {{ file.total - file.lines.length }}줄은 GitHub에서 보기 ↗</a></p>{% endif %}
+</div>
+{% else %}
+<p class="empty">projects.yml의 files에 파일 경로를 적으면 코드가 이곳에 표시됩니다.</p>
+{% endfor %}
+</div>
+</section>
+
+{% if repo.commits.length %}
+<section class="section">
+<div class="section-head"><h2>최근 커밋</h2></div>
+<ol class="section-body commits">
+{%- for c in repo.commits %}
+<li><a class="msg" href="{{ c.url }}">{{ c.message | escape }}</a><span class="when">{{ c.date | dotDate }}</span></li>
+{%- endfor %}
+</ol>
+</section>
+{% endif %}
+</div>

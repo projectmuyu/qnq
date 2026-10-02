@@ -1,0 +1,16 @@
+# 사이트에 보여줄 깃허브 저장소 목록
+#
+# 저장소를 추가하면 다음 빌드 때 프로젝트 목록과 상세 페이지가 자동으로 생겨요.
+# README, 파일 목록, 최근 커밋은 저장소에서 그대로 가져옵니다.
+#
+# 쓰는 법 (맨 앞의 # 을 지우고 고쳐 쓰세요)
+#
+# projects:
+#   - repo: your-github-id/research-baseline   # 아이디/저장소이름 (필수)
+#     files:                                   # 코드 영역에 보여줄 파일 (선택, 최대 5개)
+#       - src/train.py
+#     description: 실험 재현용 베이스라인 코드   # 저장소 설명 대신 쓸 문장 (선택)
+#
+#   - repo: your-github-id/data-pipeline
+
+projects: []

@@ -1,0 +1,35 @@
+---
+layout: base.njk
+title: 연구기록
+permalink: /research/
+eleventyExcludeFromCollections: true
+scripts: ["/js/calendar.js"]
+---
+<div class="cal-top">
+<h1 id="cal-label">연구기록</h1>
+<div class="cal-nav">
+<button class="text-btn" type="button" id="cal-prev" hidden>← 이전 달</button>
+<button class="text-btn" type="button" id="cal-next" hidden>다음 달 →</button>
+</div>
+</div>
+
+<div id="calendar" hidden>
+<div class="cal-week" aria-hidden="true"><div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div></div>
+<div class="cal-grid" id="cal-grid"></div>
+</div>
+
+<div class="cal-list-head">
+<h2 id="list-title">모든 기록 · {{ collections.research.length }}</h2>
+<button class="text-btn" type="button" id="list-clear" hidden>이달 전체 보기</button>
+</div>
+<ol class="rows compact" id="research-list">
+{%- for e in collections.research %}
+<li class="row">
+<div class="row-head"><a class="row-title" href="{{ e.url }}">{{ e.data.title }}</a><p class="row-date">{{ e.date | dotDate }}{% if e.data.tag %} · {{ e.data.tag }}{% endif %}</p></div>
+<p class="row-body">{{ e.data.summary }}</p>
+</li>
+{%- endfor %}
+</ol>
+<p class="empty" id="list-empty"{% if collections.research.length %} hidden{% endif %}>이 달에는 기록이 없습니다.</p>
+
+<script type="application/json" id="research-data">{{ collections.research | researchJson | safe }}</script>

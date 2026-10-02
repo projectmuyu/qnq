@@ -1,0 +1,21 @@
+---
+layout: base.njk
+title: 프로젝트
+permalink: /projects/
+eleventyExcludeFromCollections: true
+---
+{% if repos.length %}
+<ol class="rows">
+{%- for r in repos %}
+<li class="row">
+<div class="row-head"><a class="row-title mono" href="/projects/{{ r.slug }}/">{{ r.name }}</a><p class="row-date">{{ r.pushed | monthDot }}</p></div>
+<div class="row-body">
+<p>{{ r.description }}</p>
+{% if r.metaLine %}<p class="row-meta">{{ r.metaLine }}</p>{% endif %}
+</div>
+</li>
+{%- endfor %}
+</ol>
+{% else %}
+<p class="empty">projects.yml에 저장소를 추가하면 이곳에 나타납니다.</p>
+{% endif %}

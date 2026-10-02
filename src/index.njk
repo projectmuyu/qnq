@@ -1,0 +1,11 @@
+---
+layout: base.njk
+mainClass: home
+---
+<figure class="hero">
+{% if site.heroImage %}
+<img src="{{ site.heroImage }}" alt="{{ site.heroAlt }}">
+{% else %}
+<div class="hero-placeholder" role="img" aria-label="대표 이미지 자리">src/images 폴더에 그림을 넣고 _data/site.js의 heroImage에 경로를 적어주세요</div>
+{% endif %}
+</figure>

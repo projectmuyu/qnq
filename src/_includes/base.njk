@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if title %}{{ title | escape }} — {% endif %}{{ site.title | escape }}</title>
+<meta name="description" content="{{ (summary or site.description) | escape }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;500&display=swap">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="page">
+<header class="site-header">
+<a class="wordmark" href="/"{% if page.url == "/" %} aria-current="page"{% endif %}>{% for line in site.titleLines %}{{ line | escape }}{% if not loop.last %}<br>{% endif %}{% endfor %}</a>
+<nav class="nav" aria-label="주요 메뉴">
+{%- set sections = [["/about/", "소개"], ["/projects/", "프로젝트"], ["/essays/", "에세이"], ["/research/", "연구기록"]] %}
+{%- for s in sections %}
+<a href="{{ s[0] }}"{% if page.url == s[0] %} aria-current="page"{% elif page.url and page.url.startsWith(s[0]) %} aria-current="true"{% endif %}>{{ s[1] }}</a>
+{%- endfor %}
+{%- if site.github %}
+<a class="icon" href="{{ site.github }}" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4 1.3-4-2-6-2.5"/><path d="M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a>
+{%- endif %}
+</nav>
+</header>
+
+<main class="{{ mainClass or '' }}">
+{{ content | safe }}
+</main>
+
+<footer class="site-footer">
+<span>© {{ site.year }} {{ site.title | escape }}</span>
+{%- if site.email %}
+<span>{% if "@" in site.email %}<a href="mailto:{{ site.email }}">{{ site.email }}</a>{% else %}{{ site.email }}{% endif %}</span>
+{%- endif %}
+</footer>
+</div>
+{%- for s in scripts %}
+<script src="{{ s }}" defer></script>
+{%- endfor %}
+</body>
+</html>

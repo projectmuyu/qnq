@@ -1,0 +1,16 @@
+---
+layout: base.njk
+mainClass: tight
+---
+<article class="article">
+<h1>{{ title }}</h1>
+<p class="meta-line">{{ page.date | dotDate }}{% if tag %} · {{ tag }}{% endif %}</p>
+<div class="article-body note-body">
+{{ content | safe }}
+</div>
+</article>
+{% set older = collections.research | getNextCollectionItem(page) %}
+<nav class="pager" aria-label="이전 기록">
+{% if older %}<a href="{{ older.url }}">← {{ older.data.title }}</a>{% else %}<span></span>{% endif %}
+<a class="muted" href="/research/">달력으로</a>
+</nav>

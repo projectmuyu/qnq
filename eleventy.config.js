@@ -38,7 +38,8 @@ function convertObsidian(content) {
         })
         .replace(/(!\[[^\]]*\]\()(?:\.\.\/)*(?:src\/)?images\/([^)\s]+)\)/g, (m, pre, p) => `${pre}${imageUrl(decodeURI(p))})`)
         .replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, "$2")
-        .replace(/\[\[([^\]]+)\]\]/g, (m, t) => fileName(t).replace(/#.*$/, ""));
+        .replace(/\[\[([^\]]+)\]\]/g, (m, t) => fileName(t).replace(/#.*$/, ""))
+        .replace(/==([^=\n]+)==/g, "<mark>$1</mark>");
     })
     .join("");
 }
@@ -68,7 +69,9 @@ export default function (eleventyConfig) {
 
   eleventyConfig.setLibrary(
     "md",
-    markdownIt({ html: true, typographer: false }).use(markdownItFootnote)
+    markdownIt({ html: true, typographer: false, linkify: true })
+      .use(markdownItFootnote)
+      .enable(["strikethrough"])
   );
 
   eleventyConfig.addPassthroughCopy("src/css");

@@ -60,7 +60,7 @@ a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .nav .icon { display: inline-flex; }
 
 main { flex-grow: 1; padding: 48px var(--side) 0; }
-main.home { padding-top: 12px; }
+main.home { padding-top: 24px; }
 
 /* 하단 */
 .site-footer {

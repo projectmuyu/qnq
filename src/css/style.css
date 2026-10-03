@@ -113,6 +113,8 @@ main.home { padding-top: 24px; }
   font-size: 15px;
   line-height: 1.95;
 }
+a.row-body { text-decoration: none; }
+a.row-body:hover { text-decoration: none; opacity: 0.7; }
 .row-body p { margin: 0; }
 .row-body .row-meta { margin-top: 10px; font-size: 13px; color: var(--muted); }
 .empty { margin: 24px 0 0; font-family: var(--serif); font-size: 15px; color: var(--muted); }

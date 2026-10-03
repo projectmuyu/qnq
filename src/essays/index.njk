@@ -9,7 +9,7 @@ eleventyExcludeFromCollections: true
 {%- for e in collections.essays %}
 <li class="row">
 <div class="row-head"><a class="row-title" href="{{ e.url }}">{{ e.data.title }}</a><p class="row-date">{{ e.date | dotDate }}</p></div>
-<p class="row-body">{{ e.data.summary }}</p>
+<a class="row-body" href="{{ e.url }}">{{ e.data.summary }}</a>
 </li>
 {%- endfor %}
 </ol>

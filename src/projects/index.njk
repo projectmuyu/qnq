@@ -9,10 +9,10 @@ eleventyExcludeFromCollections: true
 {%- for r in repos %}
 <li class="row">
 <div class="row-head"><a class="row-title mono" href="/projects/{{ r.slug }}/">{{ r.name }}</a><p class="row-date">{{ r.pushed | monthDot }}</p></div>
-<div class="row-body">
+<a class="row-body" href="/projects/{{ r.slug }}/">
 <p>{{ r.description }}</p>
 {% if r.metaLine %}<p class="row-meta">{{ r.metaLine }}</p>{% endif %}
-</div>
+</a>
 </li>
 {%- endfor %}
 </ol>

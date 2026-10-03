@@ -2,6 +2,3 @@ node_modules/
 _site/
 .cache/
 .DS_Store
-._*
-.obsidian/workspace*
-.trash/

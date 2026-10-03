@@ -3,8 +3,10 @@ name: Deploy site
 on:
   push:
     branches: [main]
+  # 매일 오전 3시(한국 시간)에 프로젝트 저장소 내용을 다시 가져와 갱신합니다.
   schedule:
     - cron: "0 18 * * *"
+  # Actions 탭에서 직접 실행할 수도 있어요.
   workflow_dispatch:
 
 permissions:

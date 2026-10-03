@@ -27,7 +27,7 @@ summary: 테스트를 하고 있습니다.
 
 요호~아래첨자~
 
-이히 ~윗첨자~
+이히 ^윗첨자^
 :::
 
 
@@ -35,4 +35,4 @@ summary: 테스트를 하고 있습니다.
 https://projectmuyu.github.io/qnq/essays/on-recording/
 
 
-~~테스트 ~~
+~~테스트~~

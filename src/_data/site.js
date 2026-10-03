@@ -2,7 +2,7 @@
 export default {
   title: "Questions & Quests",
   // 왼쪽 위 이름이 두 줄로 나뉘는 위치
-  titleLines: ["Questions &", "Quests"],
+  titleLines: ["Questions", "& Quests"],
   description: "에세이와 연구기록, 그리고 프로젝트를 모아두는 개인 아카이브",
 
   // 푸터와 상단 아이콘 링크
@@ -10,7 +10,7 @@ export default {
   github: "https://github.com/your-github-id",
 
   // 홈 대표 이미지: src/images 폴더에 넣고 경로를 적어주세요. 예) "/images/hero.jpg"
-  heroImage: "",
+  heroImage: "/images/intro.png",
   heroAlt: "",
 
   year: new Date().getFullYear(),

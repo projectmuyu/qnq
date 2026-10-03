@@ -11,7 +11,7 @@ eleventyComputed:
   title: "{{ repo.name }}"
   summary: "{{ repo.description }}"
 scripts:
-  - /js/project.js
+  - /js/file-tree.js
 ---
 <p class="crumb"><a href="/projects/">프로젝트</a> / {{ repo.name }}</p>
 <h1 class="project-title">{{ repo.name }}</h1>
@@ -25,44 +25,44 @@ scripts:
 <div class="sections">
 {% if repo.readmeHtml %}
 <section class="section">
-<div class="section-head"><h2>README</h2><p class="row-date">저장소에서 자동 동기화</p></div>
+<div class="section-head"><h2>README</h2></div>
 <div class="section-body readme">
 {{ repo.readmeHtml | safe }}
 </div>
 </section>
 {% endif %}
 
-<section class="section">
-<div class="section-head">
+<section class="section section--code">
+<div class="section-code-head">
 <h2>코드</h2>
 <p class="row-date">{{ repo.branch }}{% if repo.sha %} · {{ repo.sha }}{% endif %}</p>
+</div>
 {% if repo.tree.length %}
-<ul class="tree" aria-label="파일 목록">
-{%- for f in repo.tree %}
-<li class="depth-{{ f.depth }}{% if f.shown %} on{% endif %}">{{ f.name }}</li>
-{%- endfor %}
-{%- if repo.treeTruncated %}<li><a href="{{ repo.url }}">… 전체 보기</a></li>{% endif %}
-</ul>
-{% endif %}
-</div>
-<div class="section-body">
-{% if repo.files.length > 1 %}
-<nav class="code-tabs" aria-label="파일 선택">
-{%- for file in repo.files %}
-<button class="code-tab{% if loop.first %} on{% endif %}" data-target="code-{{ loop.index0 }}">{{ file.path }}</button>
-{%- endfor %}
+<div class="explorer">
+<nav class="explorer-tree" aria-label="파일 목록">
+{{ repo.tree | repoTree(repo.slug) | safe }}
 </nav>
-{% endif %}
-{% for file in repo.files %}
-<div class="code" id="code-{{ loop.index0 }}">
-<div class="code-head"><a class="path" href="{{ file.url }}">{{ file.path }}</a><span>{{ file.total }} lines</span></div>
-<pre class="code-body"><code>{% for line in file.lines %}<span class="code-line"><span class="ln">{{ loop.index }}</span><span class="lc">{{ line | escape }}</span></span>{% endfor %}</code></pre>
-{% if file.truncated %}<p class="code-more"><a href="{{ file.url }}">나머지 {{ file.total - file.lines.length }}줄은 GitHub에서 보기 ↗</a></p>{% endif %}
+<div class="explorer-code">
+{% if repo.defaultPath %}
+{% set df = repo.contentMap[repo.defaultPath] %}
+<div class="explorer-code-head">
+<span class="path">{{ repo.defaultPath }}</span>
+<span class="explorer-code-meta">{% if df.total %}{{ df.total }} lines · {% endif %}<a href="{{ df.url }}">GitHub에서 보기 ↗</a></span>
 </div>
+{% if df.isImage %}
+<div class="explorer-preview"><img src="{{ df.url | replace('/blob/', '/raw/') }}" alt="{{ repo.defaultPath }}"></div>
+{% elif df.isBinary or df.noPreview %}
+<div class="explorer-preview"><p class="empty">미리보기를 지원하지 않는 파일입니다 · <a href="{{ df.url }}">GitHub에서 보기 ↗</a></p></div>
+{% elif df.lines %}
+<pre class="code-body"><code>{% for line in df.lines %}<span class="code-line"><span class="ln">{{ loop.index }}</span><span class="lc">{{ line | escape }}</span></span>{% endfor %}</code></pre>
+{% if df.truncated %}<p class="code-more"><a href="{{ df.url }}">나머지 {{ df.total - df.lines.length }}줄은 GitHub에서 보기 ↗</a></p>{% endif %}
 {% else %}
-<p class="empty">projects.yml의 files에 파일 경로를 적으면 코드가 이곳에 표시됩니다.</p>
-{% endfor %}
+<div class="explorer-preview"><p class="empty">미리보기를 지원하지 않는 파일입니다 · <a href="{{ df.url }}">GitHub에서 보기 ↗</a></p></div>
+{% endif %}
+{% endif %}
 </div>
+</div>
+{% endif %}
 </section>
 
 {% if repo.commits.length %}

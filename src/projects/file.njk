@@ -1,0 +1,36 @@
+---
+layout: base.njk
+mainClass: tight
+pagination:
+  data: repoFiles
+  size: 1
+  alias: file
+permalink: "/projects/{{ file.repoSlug }}/files/{{ file.path }}/"
+eleventyExcludeFromCollections: true
+eleventyComputed:
+  title: "{{ file.path }} — {{ file.repoName }}"
+scripts:
+  - /js/file-tree.js
+---
+<p class="crumb"><a href="/projects/">프로젝트</a> / <a href="/projects/{{ file.repoSlug }}/">{{ file.repoName }}</a></p>
+<div class="explorer">
+<nav class="explorer-tree" aria-label="파일 목록">
+{{ file.repo.tree | repoTree(file.repoSlug) | safe }}
+</nav>
+<div class="explorer-code">
+<div class="explorer-code-head">
+<span class="path">{{ file.path }}</span>
+<span class="explorer-code-meta">{% if file.total %}{{ file.total }} lines · {% endif %}<a href="{{ file.url }}">GitHub에서 보기 ↗</a></span>
+</div>
+{% if file.isImage %}
+<div class="explorer-preview"><img src="{{ file.url | replace('/blob/', '/raw/') }}" alt="{{ file.path }}"></div>
+{% elif file.isBinary or file.noPreview %}
+<div class="explorer-preview"><p class="empty">미리보기를 지원하지 않는 파일입니다 · <a href="{{ file.url }}">GitHub에서 보기 ↗</a></p></div>
+{% elif file.lines %}
+<pre class="code-body"><code>{% for line in file.lines %}<span class="code-line"><span class="ln">{{ loop.index }}</span><span class="lc">{{ line | escape }}</span></span>{% endfor %}</code></pre>
+{% if file.truncated %}<p class="code-more"><a href="{{ file.url }}">나머지 {{ file.total - file.lines.length }}줄은 GitHub에서 보기 ↗</a></p>{% endif %}
+{% else %}
+<div class="explorer-preview"><p class="empty">미리보기를 지원하지 않는 파일입니다 · <a href="{{ file.url }}">GitHub에서 보기 ↗</a></p></div>
+{% endif %}
+</div>
+</div>

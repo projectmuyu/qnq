@@ -43,6 +43,26 @@ function convertObsidian(content) {
     .join("");
 }
 
+function escHtml(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+function buildTreeHtml(nodes, repoSlug) {
+  let h = '<ul class="file-tree">';
+  for (const n of nodes) {
+    if (n.type === "tree") {
+      h += `<li><details><summary class="tree-dir">${escHtml(n.name)}/</summary>`;
+      h += buildTreeHtml(n.children || [], repoSlug);
+      h += `</details></li>`;
+    } else if (n.hasPage) {
+      h += `<li><a class="tree-file" href="/projects/${repoSlug}/files/${n.path}/" data-path="${escHtml(n.path)}">${escHtml(n.name)}</a></li>`;
+    } else {
+      h += `<li><a class="tree-file tree-file--ext" href="${escHtml(n.directUrl || "")}" target="_blank" rel="noopener">${escHtml(n.name)} ↗</a></li>`;
+    }
+  }
+  h += "</ul>";
+  return h;
+}
+
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(HtmlBasePlugin);
 
@@ -82,6 +102,9 @@ export default function (eleventyConfig) {
     const d = toDate(v);
     return `${d.getUTCFullYear()}.${pad(d.getUTCMonth() + 1)}`;
   });
+
+  // 파일 트리 HTML 생성
+  eleventyConfig.addFilter("repoTree", (nodes, repoSlug) => buildTreeHtml(nodes || [], repoSlug));
 
   // 연구기록 달력에 넘길 데이터
   eleventyConfig.addFilter("researchJson", (items) => {

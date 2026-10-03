@@ -121,7 +121,7 @@ async function loadRepo(cfg) {
     name: meta.name,
     fullName: meta.full_name,
     slug: (cfg.slug || meta.name).toLowerCase(),
-    description: cfg.description || meta.description || "",
+    description: meta.description || "",
     language: meta.language || "",
     license,
     metaLine: [meta.language, license].filter(Boolean).join(" · "),

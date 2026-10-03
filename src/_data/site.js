@@ -10,7 +10,7 @@ export default {
   github: "https://github.com/your-github-id",
 
   // 홈 대표 이미지: src/images 폴더에 넣고 경로를 적어주세요. 예) "/images/hero.jpg"
-  heroImage: "/images/intro.png",
+  heroImage: "/images/intro2.png",
   heroAlt: "",
 
   year: new Date().getFullYear(),

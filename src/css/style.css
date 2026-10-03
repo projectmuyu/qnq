@@ -32,7 +32,7 @@ a:hover { text-decoration: underline; text-underline-offset: 5px; }
 
 /* 상단 */
 .site-header {
-  padding: 56px var(--side) 0;
+  padding: 6px var(--side) 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -59,8 +59,8 @@ a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .nav a[aria-current] { color: var(--ink); }
 .nav .icon { display: inline-flex; }
 
-main { flex-grow: 1; padding: 140px var(--side) 0; }
-main.tight, main.home { padding-top: 120px; }
+main { flex-grow: 1; padding: 48px var(--side) 0; }
+main.home { padding-top: 12px; }
 
 /* 하단 */
 .site-footer {

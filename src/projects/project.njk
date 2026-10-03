@@ -10,6 +10,8 @@ eleventyExcludeFromCollections: true
 eleventyComputed:
   title: "{{ repo.name }}"
   summary: "{{ repo.description }}"
+scripts:
+  - /js/project.js
 ---
 <p class="crumb"><a href="/projects/">프로젝트</a> / {{ repo.name }}</p>
 <h1 class="project-title">{{ repo.name }}</h1>
@@ -37,15 +39,22 @@ eleventyComputed:
 {% if repo.tree.length %}
 <ul class="tree" aria-label="파일 목록">
 {%- for f in repo.tree %}
-<li class="depth-{{ f.depth }}{% if f.shown %} on{% endif %}"{% if f.shown %} aria-current="true"{% endif %}>{{ f.name }}</li>
+<li class="depth-{{ f.depth }}{% if f.shown %} on{% endif %}">{{ f.name }}</li>
 {%- endfor %}
 {%- if repo.treeTruncated %}<li><a href="{{ repo.url }}">… 전체 보기</a></li>{% endif %}
 </ul>
 {% endif %}
 </div>
 <div class="section-body">
+{% if repo.files.length > 1 %}
+<nav class="code-tabs" aria-label="파일 선택">
+{%- for file in repo.files %}
+<button class="code-tab{% if loop.first %} on{% endif %}" data-target="code-{{ loop.index0 }}">{{ file.path }}</button>
+{%- endfor %}
+</nav>
+{% endif %}
 {% for file in repo.files %}
-<div class="code">
+<div class="code" id="code-{{ loop.index0 }}">
 <div class="code-head"><a class="path" href="{{ file.url }}">{{ file.path }}</a><span>{{ file.total }} lines</span></div>
 <pre class="code-body"><code>{% for line in file.lines %}<span class="code-line"><span class="ln">{{ loop.index }}</span><span class="lc">{{ line | escape }}</span></span>{% endfor %}</code></pre>
 {% if file.truncated %}<p class="code-more"><a href="{{ file.url }}">나머지 {{ file.total - file.lines.length }}줄은 GitHub에서 보기 ↗</a></p>{% endif %}

@@ -200,6 +200,21 @@ main.tight, main.home { padding-top: 120px; }
 .tree .depth-1 { padding-left: 18px; }
 .tree .on { color: var(--ink); text-decoration: underline; text-underline-offset: 5px; }
 
+.code-tabs { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: -1px; }
+.code-tab {
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-bottom: none;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  margin-right: -1px;
+}
+.code-tab:hover { color: var(--ink); }
+.code-tab.on { color: var(--ink); background: #fff; border-bottom: 1px solid #fff; }
+
 .code { border: 1px solid var(--line); }
 .code + .code { margin-top: 24px; }
 .code-head {

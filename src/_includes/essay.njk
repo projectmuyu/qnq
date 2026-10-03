@@ -4,10 +4,7 @@ mainClass: tight
 ---
 <article class="article">
 <h1>{{ title }}</h1>
-<div class="byline">
-<p class="name">{{ author or site.author }}</p>
-<p>{{ site.authorBio }}</p>
-</div>
+<p class="meta-line">{{ date | monthDot }}</p>
 <div class="article-body">
 {{ content | safe }}
 </div>

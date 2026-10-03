@@ -5,10 +5,6 @@ export default {
   titleLines: ["Questions &", "Quests"],
   description: "에세이와 연구기록, 그리고 프로젝트를 모아두는 개인 아카이브",
 
-  // 에세이 본문 위에 들어가는 글쓴이 정보
-  author: "[이름]",
-  authorBio: "[무엇을 연구하고 어떤 글을 쓰는지 한두 문장으로 적는 자리]",
-
   // 푸터와 상단 아이콘 링크
   email: "[이메일 주소]",
   github: "https://github.com/your-github-id",

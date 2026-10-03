@@ -120,11 +120,8 @@ main.tight, main.home { padding-top: 120px; }
 /* 본문 (에세이, 연구기록, 소개) */
 .article { font-size: 15px; line-height: 2; }
 .article h1 { margin: 0; font-size: 16px; line-height: 1.6; font-weight: 700; }
-.byline { margin-top: 180px; }
-.byline p { margin: 0; }
-.byline .name { font-weight: 500; }
 .meta-line { margin: 14px 0 0; font-family: var(--serif); font-size: 14px; color: var(--muted); }
-.article-body { margin-top: 56px; }
+.article-body { margin-top: 120px; }
 .note-body, .page-body { margin-top: 120px; }
 .article-body > :first-child { margin-top: 0; }
 .article-body p { margin: 0; }
@@ -292,5 +289,4 @@ button.cal-cell .cal-num { color: var(--ink); }
 @media (max-width: 760px) {
   .cal-cell { min-height: 64px; padding: 6px; }
   .cal-item .cal-text { display: none; }
-  .byline { margin-top: 120px; }
 }

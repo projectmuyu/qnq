@@ -13,4 +13,11 @@
 #
 #   - repo: your-github-id/data-pipeline
 
-projects: []
+projects:
+  - repo: projectmuyu/qnq
+    files:
+      - eleventy.config.js
+      - src/_includes/essay.njk
+      - src/_includes/note.njk
+      - src/css/style.css
+      - src/_data/repos.js

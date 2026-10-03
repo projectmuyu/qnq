@@ -1,6 +1,15 @@
 import { HtmlBasePlugin } from "@11ty/eleventy";
 import markdownIt from "markdown-it";
 import markdownItFootnote from "markdown-it-footnote";
+import markdownItContainer from "markdown-it-container";
+import markdownItSub from "markdown-it-sub";
+import markdownItSup from "markdown-it-sup";
+import markdownItIns from "markdown-it-ins";
+import markdownItMark from "markdown-it-mark";
+import markdownItAbbr from "markdown-it-abbr";
+import markdownItDeflist from "markdown-it-deflist";
+import { full as markdownItEmoji } from "markdown-it-emoji";
+import markdownItTaskLists from "markdown-it-task-lists";
 
 // GitHub Actions가 PATH_PREFIX를 넣어줍니다.
 // 아이디.github.io 저장소면 "/", 다른 이름의 저장소면 "/저장소이름/"이 됩니다.
@@ -38,8 +47,7 @@ function convertObsidian(content) {
         })
         .replace(/(!\[[^\]]*\]\()(?:\.\.\/)*(?:src\/)?images\/([^)\s]+)\)/g, (m, pre, p) => `${pre}${imageUrl(decodeURI(p))})`)
         .replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, "$2")
-        .replace(/\[\[([^\]]+)\]\]/g, (m, t) => fileName(t).replace(/#.*$/, ""))
-        .replace(/==([^=\n]+)==/g, "<mark>$1</mark>");
+        .replace(/\[\[([^\]]+)\]\]/g, (m, t) => fileName(t).replace(/#.*$/, ""));
     })
     .join("");
 }
@@ -71,6 +79,15 @@ export default function (eleventyConfig) {
     "md",
     markdownIt({ html: true, typographer: false, linkify: true })
       .use(markdownItFootnote)
+      .use(markdownItContainer, "hl")
+      .use(markdownItSub)
+      .use(markdownItSup)
+      .use(markdownItIns)
+      .use(markdownItMark)
+      .use(markdownItAbbr)
+      .use(markdownItDeflist)
+      .use(markdownItEmoji)
+      .use(markdownItTaskLists, { enabled: true })
       .enable(["strikethrough"])
   );
 
